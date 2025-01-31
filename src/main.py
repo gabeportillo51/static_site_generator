@@ -1,0 +1,6 @@
+from textnode import *
+
+def main():
+    print(TextNode("This is a text node", TextType.BOLD, "https://www.bootdev.com"))
+
+main()
