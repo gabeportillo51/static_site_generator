@@ -1,0 +1,26 @@
+class HTMLNODE:
+    def __init__(self, tag=None, value=None, children=None, props=None):
+        self.tag = tag
+        self.value = value
+        self.children = children
+        self.props = props
+    
+    def __eq__(self, other):
+        if (self.tag == other.tag) and (self.value == other.value) and(self.children == other.children) and (self.props == other.props):
+            return True
+        else:
+            return False
+
+    def to_html(self):
+        raise NotImplementedError
+    
+    def props_to_html(self):
+        if self.props != None:
+            attributes = []
+            for key in self.props:
+                attributes.append(f' {key}="{self.props[key]}"')
+            return " ".join(attributes)
+        
+    def __repr__(self):
+        return f"HTMLNODE({self.tag}, {self.value}, {self.children}, {self.props})"
+    
