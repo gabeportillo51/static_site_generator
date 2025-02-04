@@ -22,3 +22,7 @@ class TestLEAFNODE(unittest.TestCase):
         leaf2 = LEAFNODE("a", "Click Here", props={"href":"https://www.google.com", "target":"_blank"})
         self.assertEqual(leaf1, leaf2)
         
+
+
+if __name__ == "__main__":
+    unittest.main()

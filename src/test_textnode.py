@@ -1,6 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType
+from leafnode import *
 
 
 class TestTextNode(unittest.TestCase):
@@ -20,9 +21,11 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(node1, node2)
 
     def test_3(self):
-        node1 = TextNode("This is a text node", TextType.LINK)
-        node2 = TextNode("This is a text node", TextType.LINK)
-        self.assertEqual(node1, node2)
+        node1 = TextNode("This is a text node", TextType.LINK, "www.google.com")
+        node2 = TextNode("This is a text node", TextType.LINK, "www.google.com")
+        leafnode1 = node1.text_node_to_html_node()
+        leafnode2 = node2.text_node_to_html_node()
+        self.assertEqual(leafnode1, leafnode2)
 
     def test_4(self):
         node1 = TextNode("This is a text node", TextType.IMAGE)
@@ -41,8 +44,12 @@ class TestTextNode(unittest.TestCase):
 
     def test_7(self):
         node1 = TextNode("This is a text node", TextType.ITALIC)
-        node2 = TextNode("This is a node", TextType.ITALIC)
-        self.assertNotEqual(node1, node2)
+        node2 = TextNode("This is a text node", TextType.ITALIC)
+        leafnode1 = node1.text_node_to_html_node()
+        leafnode2 = node2.text_node_to_html_node()
+        self.assertEqual(leafnode1, leafnode2)
+
+    
 
 
 if __name__ == "__main__":

@@ -25,3 +25,8 @@ class TestHTMLNODE(unittest.TestCase):
     def test_6(self):
         node = HTMLNODE(props={"href": "https://www.google.com", "target": "_blank"})
         return node.props_to_html()
+    
+
+
+if __name__ == "__main__":
+    unittest.main()
