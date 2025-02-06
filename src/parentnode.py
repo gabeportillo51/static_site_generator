@@ -1,26 +1,21 @@
 from htmlnode import *
+from leafnode import *
 
 class PARENTNODE(HTMLNODE):
     def __init__(self, tag, children, props=None):
         super().__init__(tag=tag, value=None, children=children, props=props)
 
     def to_html(self):
-        if self.tag == None:
-            raise ValueError("object has no tag")
-        if self.children == None:
-            raise ValueError("object has no children")
-        contents = ""
+        if self.tag is None:
+            raise ValueError("This parent node has no tag!")
+        if self.children is None:
+            raise ValueError("This parent node has no children!")
+        children_html = ""
         for child in self.children:
-            contents += child.to_html()
+            children_html += child.to_html()   
         if self.props != None:
-            return f"<{self.tag}>{self.props_to_html()}{contents}</{self.tag}>"
+            return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
         else:
-            return f"<{self.tag}>{contents}</{self.tag}>"
-    
-    def __eq__(self, other):
-        if (self.tag == other.tag) and (self.children == other.children) and (self.props == other.props):
-            return True
-        else:
-            return False
-            
+            return f"<{self.tag}>{children_html}</{self.tag}>"
+                
 

@@ -1,10 +1,10 @@
-from extract_functions import *
+from extract_functions import extract_markdown_images, extract_markdown_links
 from textnode import *
 
 def split_nodes_image(old_nodes):
     new_nodes = []
     for node in old_nodes:
-        images = extract_markdown_images(node.text)
+        images = extract_markdown_images(node.text) # this is a list of tuples
         if node.text == "":
             pass
         if len(images) == 0:
@@ -56,7 +56,4 @@ def split_nodes_link(old_nodes):
                     new_nodes.append(TextNode(sections[0], TextType.NORMAL))
                     new_nodes.append(link_node)
     return new_nodes
-
-node = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", TextType.NORMAL)
-print(split_nodes_link([node]))
 

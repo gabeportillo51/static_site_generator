@@ -26,7 +26,7 @@ class TextNode:
 	
 	def text_node_to_html_node(self):
 		if self.text_type.value == "normal":
-			return LEAFNODE(None, self.text, self.url)
+			return LEAFNODE(None, self.text)
 		if self.text_type.value == "bold":
 			return LEAFNODE("b", self.text)
 		if self.text_type.value == "italic":

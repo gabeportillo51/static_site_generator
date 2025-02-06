@@ -1,63 +1,53 @@
 import unittest
-from parentnode import *
-from leafnode import *
+from parentnode import PARENTNODE
+from leafnode import LEAFNODE
 
-class TestPARENTNODE(unittest.TestCase):
+class TestParentNode(unittest.TestCase):
     def test_1(self):
-        node1 = PARENTNODE("p", [LEAFNODE("b", "Bold text"), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        node2 = PARENTNODE("p", [LEAFNODE("b", "Bold text"), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        self.assertEqual(node1, node2)
+        node_1 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")])
+        node_2 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")])
+        self.assertEqual(node_1, node_2)
 
     def test_2(self):
-        node1 = PARENTNODE("p", [LEAFNODE("p", "Bold text"), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        node2 = PARENTNODE("p", [LEAFNODE("b", "Bold text"), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        self.assertNotEqual(node1, node2)
+        node_1 = PARENTNODE("h2", [LEAFNODE("b", "This is bold text"), LEAFNODE("code", "This is code froma website", {"href":"https://www.youtube.com"})])
+        node_2 = PARENTNODE("h2", [LEAFNODE("b", "This is bold text"), LEAFNODE("code", "This is code froma website", {"href":"https://www.youtube.com"})])
+        self.assertEqual(node_1, node_2)
 
     def test_3(self):
-        node1 = PARENTNODE("p", [LEAFNODE("b", "Bold text"), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        node2 = PARENTNODE("p", [LEAFNODE("b", "Bold text"), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")])
-        self.assertNotEqual(node1, node2)
+        node_1 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")], {"href":"https://www.youtube.com"})
+        node_2 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")], {"href":"https://www.youtube.com"})
+        self.assertEqual(node_1, node_2)
 
-    def test_4(self):
-        node1 = PARENTNODE("p", [PARENTNODE("p", [LEAFNODE(None, "Normal text"), LEAFNODE("i", "italic text")]), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        node2 = PARENTNODE("p", [PARENTNODE("p", [LEAFNODE(None, "Normal text"), LEAFNODE("i", "italic text")]), 
-                         LEAFNODE(None, "Normal text"), 
-                         LEAFNODE("i", "italic text"), 
-                         LEAFNODE(None, "Normal text")], 
-                         props={"href": "https://www.google.com", "target": "_blank"})
-        self.assertEqual(node1, node2)
+    def test_5(self):
+        node_1 = PARENTNODE("h1", [LEAFNODE("a", "This is bold text")])
+        node_2 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")])
+        self.assertNotEqual(node_1, node_2)
+
+    def test_6(self):
+        node_1 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")])
+        node_2 = PARENTNODE("h1", [LEAFNODE("b", "This is italic text")])
+        self.assertNotEqual(node_1, node_2)
+
+    def test_7(self):
+        node_1 = PARENTNODE("h1", [PARENTNODE("h2", [LEAFNODE("b", "This is bold text")])])
+        node_2 = PARENTNODE("h1", [PARENTNODE("h2", [LEAFNODE("b", "This is bold text")])])
+        self.assertEqual(node_1, node_2)
+
+    def test_8(self):
+        node_1 = PARENTNODE("h1", [LEAFNODE("b", "This is bold text")], {"href":"https://www.youtube.com"})
+        node_2 = PARENTNODE("h1", [LEAFNODE("b", "This is italic text")])
+        self.assertNotEqual(node_1, node_2)
+
+    def test_9(self):
+        node_1 = PARENTNODE("h1", None)
+        node_2 = PARENTNODE("h1", None)
+        self.assertEqual(node_1, node_2)
+
+    def test_10(self):
+        node_1 = PARENTNODE(None, [LEAFNODE("b", "This is bold text")])
+        node_2 = PARENTNODE(None, [LEAFNODE("b", "This is bold text")])
+        self.assertEqual(node_1, node_2)
 
 
 if __name__ == "__main__":
     unittest.main()
-
-    
-
-    
