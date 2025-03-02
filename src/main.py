@@ -6,6 +6,7 @@ from parentnode import *
 from leafnode import *
 from textnode import *
 from pathlib import Path
+import sys
 
 def copy_files_recursive(source_dir_path, dest_dir_path):
     if not os.path.exists(dest_dir_path):
@@ -36,6 +37,7 @@ def generate_page(from_path, template_path, dest_path):
         temp_contents = tmp.read()
         title = extract_title(contents)
     finished = temp_contents.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
+    finished = temp_contents.replace('href = "/', f'href = "/{dest_path}').replace('src = "/', f'src = "/{dest_path}')
     os.makedirs(os.path.dirname(dest_path), exist_ok=True)
     with open(dest_path, "w") as file:
         file.write(finished)
@@ -54,10 +56,10 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
               
 
 def main():
-    print("Deleting public directory...")
-    if os.path.exists("public/"):
-        shutil.rmtree("public/")
-    print("Copying static files to public directory...")
-    copy_files_recursive("static/", "public/")
-    generate_pages_recursive("content/", "template.html", "public/")
+    if len(sys.argv[1]) > 0:
+        basepath = sys.argv[1]
+    else:
+        basepath = "/"
+    copy_files_recursive("static/", "docs/")
+    generate_pages_recursive("content/", "template.html", basepath)
 main()
